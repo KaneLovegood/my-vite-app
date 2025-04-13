@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/Group 9.png";
+import avatar from "../assets/avatar.png";
 import "../css/Header.css";
-import logo from "../3_Data/Lab_01/Group 9.png"; // Update path as needed
-import avatar from "../3_Data/Lab_03/avatar.png";
 
 const Header = ({ user, onLoginClick, onLogout }) => {
   const navigate = useNavigate();

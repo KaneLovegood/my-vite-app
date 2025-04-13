@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import './App.css'
-import Header from './components/Header'
-import Home from './components/Home'
-import Footer from './components/Footer'
+import AboutUs from './pages/AboutUs'
 import Dialog from './components/Dialog'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Home from './pages/Home'
 import LoginDialog from './components/LoginDialog'
 import RecipeBox from './components/RecipeBox'
-import AboutUs from './components/AboutUs'
-import Recipes from './components/Recipes'
+import Recipes from './pages/Recipes'
+import CookingGuide from './pages/CookingGuide'
 
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,6 +46,7 @@ function App() {
           <Route path="/recipes" element={<Recipes user={user} onLoginClick={handleLoginClick} />} />
           <Route path="/ingredients" element={<></>} />
           <Route path="/occasions" element={<></>} />
+          <Route path="/guide" element={<CookingGuide/>} />
           <Route 
             path="/about" 
             element={<AboutUs user={user} onLoginClick={handleLoginClick} />} 
