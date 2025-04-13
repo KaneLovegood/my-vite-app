@@ -1,13 +1,13 @@
 import React from "react";
+import avatarImage from "../assets/avatar.png";
+import img7 from "../assets/Icon Button 73.png";
 import "../css/Home.css";
-import avatarImage from "../3_Data/Lab_02/avatar.png";
 import img1 from "/Lab_02_b/Italian-styletomato.png";
 import img2 from "/Lab_02_b/Lotusdelightsalad.png";
 import img3 from "/Lab_02_b/Saladwithcabbage.png";
 import img4 from "/Lab_02_b/Snackcakes.png";
 import img5 from "/Lab_02_b/Sunny-sideupfriedeggs.png";
 import img6 from "/Lab_02_b/Vegetableandshrimpspaghetti.png";
-import img7 from "../3_Data/Lab_03/Icon Button 73.png";
 
 const Home = () => {
   const summerRecipes = [

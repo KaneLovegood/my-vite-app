@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import welcomeImage2 from "../assets/Image 73.png";
+import welcomeImage3 from "../assets/Image 93.png";
 import "../css/Dialog.css";
-import welcomeImage2 from "../3_Data/Lab_01/Image 73.png";
-import welcomeImage3 from "../3_Data/Lab_01/Image 93.png";
 
 const slides = [
   {

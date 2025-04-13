@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Apple, EnvelopeAt, Facebook, Google, X } from "react-bootstrap-icons";
+import loginImage from "../assets/Image 72.png";
 import "../css/LoginDialog.css";
-import loginImage from "../3_Data/Lab_01/Image 72.png";
-import { X, Google, Facebook, Apple, EnvelopeAt } from "react-bootstrap-icons";
 
 const LoginDialog = ({ isOpen, onClose, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
