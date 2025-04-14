@@ -1,128 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import avatarImage from "../assets/avatar.png";
 import img7 from "../assets/Icon Button 73.png";
 import "../css/Home.css";
-import img1 from "/Lab_02_b/Italian-styletomato.png";
-import img2 from "/Lab_02_b/Lotusdelightsalad.png";
-import img3 from "/Lab_02_b/Saladwithcabbage.png";
-import img4 from "/Lab_02_b/Snackcakes.png";
-import img5 from "/Lab_02_b/Sunny-sideupfriedeggs.png";
-import img6 from "/Lab_02_b/Vegetableandshrimpspaghetti.png";
+import { foodService } from "../services/foodService";
 
 const Home = () => {
-  const summerRecipes = [
-    {
-      id: 1,
-      image: img1,
-      title: "Italian-style tomato",
-      time: "30 minutes",
-    },
-    {
-      id: 2,
-      image: img2,
-      title: "Spaghetti with vegetables",
-      time: "25 minutes",
-    },
-    {
-      id: 3,
-      image: img3,
-      title: "Lotus delight salad",
-      time: "15 minutes",
-    },
-    {
-      id: 4,
-      image: img4,
-      title: "Snack cakes",
-      time: "45 minutes",
-    },
-  ];
+  const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const videoRecipes = [
-    {
-      id: 1,
-      image: img6,
-      title: "Salad with cabbage and shrimp",
-      time: "20 minutes",
-    },
-    {
-      id: 2,
-      image: img3,
-      title: "Salad of cove beans",
-      time: "15 minutes",
-    },
-    {
-      id: 3,
-      image: img5,
-      title: "Sunny-side up fried egg",
-      time: "10 minutes",
-    },
-    {
-      id: 4,
-      image: img4,
-      title: "Lotus delight salad",
-      time: "15 minutes",
-    },
-  ];
+  useEffect(() => {
+    const fetchFoods = async () => {
+      try {
+        const data = await foodService.getAllFoods();
+        setFoods(data);
+      } catch (error) {
+        console.error('Error fetching foods:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const editorsPicks = [
-    {
-      id: 1,
-      image: img6,
-      title: "Stuffed sticky rice ball",
-      time: "34 minutes",
-      author: "Jennifer King",
-      description:
-        "Stuffed sticky rice balls: A delightful Asian treat with chewy, glutinous rice and a flavorful surprise filling...",
-    },
-    {
-      id: 2,
-      image: img5,
-      title: "Strawberry smoothie",
-      time: "40 minutes",
-      author: "Matthew Martinez",
-      description:
-        "Savor the refreshing delight of a strawberry smoothie. Made with ripe strawberries, this creamy blend offers...",
-    },
-    {
-      id: 3,
-      image: img3,
-      title: "Latte Art",
-      time: "19 minutes",
-      author: "Sarah Hill",
-      description:
-        "Latte art is the skillful craft of creating captivating designs on the surface of a latte...",
-    },
-    {
-      id: 4,
-      image: img2,
-      title: "Butter fried noodles",
-      time: "16 minutes",
-      author: "Julia Lopez",
-      description:
-        "Butter fried noodles: Savory noodles cooked in butter for a delicious and satisfying meal...",
-    },
-  ];
+    fetchFoods();
+  }, []);
+
+  // Chia foods thành các nhóm
+  const summerRecipes = foods.slice(0, 4);
+  const videoRecipes = foods.slice(4, 8);
+  const editorsPicks = foods.slice(8, 12);
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
   return (
     <main className="home">
       <section className="hero">
         <div className="recipe-card">
           <span className="recipe-tag">Recipe of the day</span>
-          <h2 style={{ color: "#ff4081" }}>Salad Caprese</h2>
+          <h2 style={{ color: "#ff4081" }}>{foods[0]?.title || "Loading..."}</h2>
           <p>
-            Classic Italian Salad Caprese: ripe tomatoes, fresh mozzarella,
-            basil, oil, and balsamic vinegar create a refreshing pair for lunch
-            or appetizer
+            {foods[0]?.description || "Loading description..."}
           </p>
           <div className="recipe-author">
             <img
               src={avatarImage}
-              alt="Salad Caprese Author"
+              alt="Author"
               className="author-avatar"
             />
-            <span>Salad Caprese</span>
+            <span>{foods[0]?.author || "Loading..."}</span>
           </div>
-          <button className="view-now">View now →</button>
+          <Link to={`/cooking-guide/${foods[0]?.id || 1}`} className="view-now">View now →</Link>
         </div>
       </section>
 
@@ -135,14 +63,14 @@ const Home = () => {
 
         <div className="recipe-grid">
           {summerRecipes.map((recipe) => (
-            <div key={recipe.id} className="recipe-item">
+            <Link to={`/cooking-guide/${recipe.id}`} key={recipe.id} className="recipe-item">
               <img src={recipe.image} alt={recipe.title} />
               <h3>{recipe.title}</h3>
-              <h3 style={{ color: "#ff4081" }}>{recipe.time}</h3>
+              <h3 style={{ color: "#ff4081" }}>{recipe.time} minutes</h3>
               <button className="save-recipe">
                 <img src={img7} alt="Save recipe" />
               </button>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -156,14 +84,14 @@ const Home = () => {
 
         <div className="recipe-grid">
           {videoRecipes.map((recipe) => (
-            <div key={recipe.id} className="recipe-item">
+            <Link to={`/cooking-guide/${recipe.id}`} key={recipe.id} className="recipe-item">
               <img src={recipe.image} alt={recipe.title} />
               <h3>{recipe.title}</h3>
-              <h3 style={{ color: "#ff4081" }}>{recipe.time}</h3>
+              <h3 style={{ color: "#ff4081" }}>{recipe.time} minutes</h3>
               <button className="save-recipe">
                 <img src={img7} alt="Save recipe" />
               </button>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -179,30 +107,30 @@ const Home = () => {
         </div>
 
         <div className="editors-grid">
-          {editorsPicks.map((editor) => (
-            <div key={editor.id} className="editor-item">
+          {editorsPicks.map((recipe) => (
+            <Link to={`/cooking-guide/${recipe.id}`} key={recipe.id} className="editor-item">
               <div className="editor-image">
-                <img src={editor.image} alt={editor.title} />
+                <img src={recipe.image} alt={recipe.title} />
                 <button className="save-recipe">
                   <img src={img7} alt="Save recipe" />
                 </button>
               </div>
               <div className="editor-content">
                 <div className="recipe-time" style={{ color: "#ff4081" }}>
-                  {editor.time}
+                  {recipe.time} minutes
                 </div>
                 <div className="editor-info">
                   <img
                     src={avatarImage}
-                    alt={editor.author}
+                    alt={recipe.author || "Author"}
                     className="editor-avatar"
                   />
-                  <span>{editor.author}</span>
+                  <span>{recipe.author || "Author"}</span>
                 </div>
-                <h3>{editor.title}</h3>
-                <p>{editor.description}</p>
+                <h3>{recipe.title}</h3>
+                <p>{recipe.description || "No description available"}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

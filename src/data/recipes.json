@@ -1,0 +1,144 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "How to make a Strawberry Shortcake",
+      "description": "A delicious and classic dessert that combines fresh strawberries, whipped cream, and tender shortcake. Perfect for any occasion!",
+      "author": {
+        "name": "Emma Gonzalez",
+        "avatar": "../assets/avatar.png"
+      },
+      "time": "45 minutes",
+      "notes": 352,
+      "rating": 4,
+      "ingredients": [
+        "Yield: 4 generous servings",
+        "2 pints ripe, well-rinsed strawberries",
+        "1/2 cup sugar, or more to taste",
+        "4 cups flour",
+        "3 tablespoons sugar",
+        "1/4 teaspoon salt",
+        "5 teaspoons baking powder",
+        "1 1/4 cups butter",
+        "3 cups whipping cream",
+        "1/4 teaspoon vanilla extract"
+      ],
+      "steps": [
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 1: Prepare the Strawberries",
+          "description": "Pick over and hull strawberries. Cut in half or slice, depending on size. Gently crush about a quarter of the berries with a fork to release their juices. Mix with remaining berries and the 1/2 cup of sugar, adding more sugar if necessary. Set aside, covered, for about half an hour to develop flavor."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 2: Preheat Oven",
+          "description": "Preheat oven to 425 degrees Fahrenheit (220 degrees Celsius)."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 3: Make the Dough",
+          "description": "Into a large mixing bowl, sift together flour, 3 tablespoons sugar, salt and baking powder. Add ½ cup of softened butter, and rub into dry ingredients as for pastry. Add 1½ cups cream, and mix to a soft dough. Knead the dough for one minute on a lightly floured pastry board, then roll it out to about ½-inch thickness. Using a 3-inch biscuit cutter, cut an even number of rounds - 2 rounds per serving."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 4: Bake the Shortcakes",
+          "description": "Knead and roll out the remaining dough to cut more shortcakes. Place the rounds on ungreased baking sheets and bake for 10 to 15 minutes, until golden brown."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 5: Assemble the Shortcakes",
+          "description": "Use a little of the butter to grease a baking sheet. Place half the rounds on it. Melt remaining butter and brush a little on the rounds; place remaining rounds on top. Bake for 10 to 15 minutes, or until golden brown."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 6: Prepare the Whipped Cream",
+          "description": "Beat remaining cream until it thickens. Add vanilla. Beat again just until thick."
+        }
+      ],
+      "comments": [
+        {
+          "author": "Jimmy Will",
+          "avatar": "../assets/avatar.png",
+          "time": "08:10 AM",
+          "content": "This recipe is amazing! The shortcake came out perfectly tender and the strawberries were so fresh. Will definitely make this again!",
+          "likes": 0,
+          "replies": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "How to make Pho",
+      "description": "A traditional Vietnamese noodle soup that is both comforting and flavorful. This recipe will guide you through making authentic pho at home.",
+      "author": {
+        "name": "Nguyen Van A",
+        "avatar": "../assets/avatar.png"
+      },
+      "time": "3 hours",
+      "notes": 245,
+      "rating": 5,
+      "ingredients": [
+        "Yield: 4 servings",
+        "2 lbs beef bones",
+        "1 lb beef brisket",
+        "1 large onion",
+        "1 piece ginger",
+        "5 star anise",
+        "6 cloves",
+        "1 cinnamon stick",
+        "1 cardamom pod",
+        "1 tbsp coriander seeds",
+        "1 tbsp fennel seeds",
+        "1 tbsp salt",
+        "2 tbsp fish sauce",
+        "1 lb rice noodles",
+        "Fresh herbs (basil, cilantro, mint)",
+        "Bean sprouts",
+        "Lime wedges",
+        "Chili peppers"
+      ],
+      "steps": [
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 1: Prepare the Broth",
+          "description": "Rinse the beef bones and brisket. Place them in a large pot and cover with water. Bring to a boil and skim off any impurities. Reduce heat and simmer for 1 hour."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 2: Char the Aromatics",
+          "description": "Char the onion and ginger over an open flame or under the broiler until blackened. This adds depth to the broth."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 3: Toast the Spices",
+          "description": "Toast the star anise, cloves, cinnamon, cardamom, coriander, and fennel seeds in a dry pan until fragrant."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 4: Simmer the Broth",
+          "description": "Add the charred aromatics and toasted spices to the broth. Continue simmering for another 2 hours. Season with salt and fish sauce."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 5: Prepare the Noodles",
+          "description": "Soak the rice noodles in warm water for 15 minutes. Drain and set aside."
+        },
+        {
+          "image": "../assets/banhDau.png",
+          "title": "Step 6: Assemble the Pho",
+          "description": "Slice the brisket thinly. Place noodles in bowls, top with brisket slices, and ladle hot broth over. Serve with fresh herbs, bean sprouts, lime wedges, and chili peppers."
+        }
+      ],
+      "comments": [
+        {
+          "author": "Sarah Johnson",
+          "avatar": "../assets/avatar.png",
+          "time": "09:30 AM",
+          "content": "The broth is so rich and flavorful! This recipe is definitely worth the time investment.",
+          "likes": 5,
+          "replies": []
+        }
+      ]
+    }
+  ]
+} 

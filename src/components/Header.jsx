@@ -35,7 +35,7 @@ const Header = ({ user, onLoginClick, onLogout }) => {
         <nav className="main-nav">
           <ul className="nav-links">
             <li>
-              <Link to="/">What to cook</Link>
+              <Link to="/whattocook">What to cook</Link>
             </li>
             <li>
               <Link to="/recipes">Recipes</Link>
