@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/RecipeBox.css";
 import { foodService } from "../services/foodService";
-
+import avatar from '../assets/avatar.png'
 const RecipeBox = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 6;
+  const [activeTab, setActiveTab] = useState("Saved Recipes");
+  const recipesPerPage = 8;
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -24,7 +25,6 @@ const RecipeBox = () => {
     fetchRecipes();
   }, []);
 
-  // Tính toán phân trang
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
@@ -41,17 +41,39 @@ const RecipeBox = () => {
 
   return (
     <div className="recipe-box">
-      <div className="recipe-box-header">
-        <h1>Your Recipe Box</h1>
-        <p>All your saved recipes in one place</p>
+      <div className="profile-section">
+        <div className="profile-image">
+          <img src={avatar} alt="Profile" />
+        </div>
+        <div className="profile-info">
+          <h1>Emma Gonzalez's Recipe Box</h1>
+          <p>Emma Gonzalez is a deputy editor at Chefify, bringing her expertise as a former cooking editor at The Los Angeles Times. She is also an accomplished author, contributing to numerous cookbooks and food publications. Originally from East Los Angeles, Emma now resides in New York City, where she explores a wide range of culinary delights.</p>
+          <div className="profile-stats">
+            <span>6.5k Subscribes</span>
+            <button className="share-button">Share</button>
+          </div>
+        </div>
       </div>
 
-      <div className="recipe-filters">
-        <button className="filter-btn active">All Recipes</button>
-        <button className="filter-btn">Breakfast</button>
-        <button className="filter-btn">Lunch</button>
-        <button className="filter-btn">Dinner</button>
-        <button className="filter-btn">Desserts</button>
+      <div className="recipe-tabs">
+        <button 
+          className={`tab ${activeTab === "Saved Recipes" ? "active" : ""}`}
+          onClick={() => setActiveTab("Saved Recipes")}
+        >
+          Saved Recipes
+        </button>
+        <button 
+          className={`tab ${activeTab === "Folders" ? "active" : ""}`}
+          onClick={() => setActiveTab("Folders")}
+        >
+          Folders
+        </button>
+        <button 
+          className={`tab ${activeTab === "Recipes by Genevieve" ? "active" : ""}`}
+          onClick={() => setActiveTab("Recipes by Genevieve")}
+        >
+          Recipes by Genevieve
+        </button>
       </div>
 
       <div className="recipes-grid">
@@ -65,19 +87,7 @@ const RecipeBox = () => {
             </div>
             <div className="recipe-info">
               <h3>{recipe.title}</h3>
-              <div className="recipe-meta">
-                <span className="cooking-time">
-                  <i className="bi bi-clock"></i> {recipe.time} minutes
-                </span>
-                <div className="recipe-rating">
-                  {[...Array(5)].map((_, index) => (
-                    <i
-                      key={index}
-                      className={`bi bi-star${index < recipe.rating ? "-fill" : ""}`}
-                    ></i>
-                  ))}
-                </div>
-              </div>
+              <span className="cooking-time">{recipe.time} minutes</span>
             </div>
           </Link>
         ))}
@@ -86,23 +96,23 @@ const RecipeBox = () => {
       <div className="pagination">
         <button 
           className="prev-btn" 
-          onClick={() => handlePageClick(currentPage > 1 ? currentPage - 1 : 1)}
+          onClick={() => handlePageClick(currentPage - 1)}
           disabled={currentPage === 1}
         >
           ←
         </button>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        {[...Array(totalPages)].map((_, i) => (
           <button
-            key={page}
-            className={`page-btn ${currentPage === page ? "active" : ""}`}
-            onClick={() => handlePageClick(page)}
+            key={i + 1}
+            className={`page-btn ${currentPage === i + 1 ? "active" : ""}`}
+            onClick={() => handlePageClick(i + 1)}
           >
-            {page}
+            {i + 1}
           </button>
         ))}
         <button 
           className="next-btn" 
-          onClick={() => handlePageClick(currentPage < totalPages ? currentPage + 1 : totalPages)}
+          onClick={() => handlePageClick(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
           →

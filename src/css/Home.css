@@ -3,6 +3,10 @@
   margin: 0 auto;
   padding: 20px;
 }
+Link {
+  text-decoration: none;
+  text-decoration-line: none;
+}
 
 /* Hero Section */
 .hero {

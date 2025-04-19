@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import avatarImage from "../assets/avatar.png";
 import img7 from "../assets/Icon Button 73.png";
 import "../css/Home.css";
@@ -8,6 +8,11 @@ import { foodService } from "../services/foodService";
 const Home = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate()
+  const r = () => {
+    navigate('/ingredients')
+  }
 
   useEffect(() => {
     const fetchFoods = async () => {
@@ -50,7 +55,7 @@ const Home = () => {
             />
             <span>{foods[0]?.author || "Loading..."}</span>
           </div>
-          <Link to={`/cooking-guide/${foods[0]?.id || 1}`} className="view-now">View now →</Link>
+          <Link  to={`/cooking-guide/${foods[0]?.id || 1}`} className="view-now text-decoration-none" >View now →</Link>
         </div>
       </section>
 
@@ -63,7 +68,7 @@ const Home = () => {
 
         <div className="recipe-grid">
           {summerRecipes.map((recipe) => (
-            <Link to={`/cooking-guide/${recipe.id}`} key={recipe.id} className="recipe-item">
+            <Link to={`/ingredients`} key={recipe.id} className="recipe-item">
               <img src={recipe.image} alt={recipe.title} />
               <h3>{recipe.title}</h3>
               <h3 style={{ color: "#ff4081" }}>{recipe.time} minutes</h3>
@@ -84,7 +89,7 @@ const Home = () => {
 
         <div className="recipe-grid">
           {videoRecipes.map((recipe) => (
-            <Link to={`/cooking-guide/${recipe.id}`} key={recipe.id} className="recipe-item">
+            <Link to={`/ingredients`} key={recipe.id} className="recipe-item">
               <img src={recipe.image} alt={recipe.title} />
               <h3>{recipe.title}</h3>
               <h3 style={{ color: "#ff4081" }}>{recipe.time} minutes</h3>
@@ -108,7 +113,7 @@ const Home = () => {
 
         <div className="editors-grid">
           {editorsPicks.map((recipe) => (
-            <Link to={`/cooking-guide/${recipe.id}`} key={recipe.id} className="editor-item">
+            <Link to={`/ingredients`} key={recipe.id} className="editor-item">
               <div className="editor-image">
                 <img src={recipe.image} alt={recipe.title} />
                 <button className="save-recipe">

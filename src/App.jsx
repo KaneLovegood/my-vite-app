@@ -48,7 +48,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/whattocook" element={<WhatToCook />} />
             <Route path="/recipes" element={<Recipes user={user} onLoginClick={handleLoginClick} />} />
-            <Route path="/ingredients" element={<></>} />
+            <Route path="/ingredients" element={<CookingGuide></CookingGuide>} />
             <Route path="/occasions" element={<></>} />
             <Route path="/guide" element={<CookingGuide/>} />
             <Route 

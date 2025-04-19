@@ -1,200 +1,270 @@
-import React from "react";
-import { Star, StarFill } from "react-bootstrap-icons";
-import { Link, useParams } from "react-router-dom";
-import authorAvatar from "../assets/avatar.png";
-import banhDau from '../assets/banhDau.png';
-import button from "../assets/Button 96.png";
-import recipes from '../data/recipes.json';
+import React, { useState } from 'react'
+import arrow from '../assets/Arrow forward ios 2.png'
+import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import avt from '../assets/avatar.png'
+import save from '../assets/image.png'
+import img1 from '../assets/banhDau.png'
+import img2 from '../assets/banhDau2.png'
+import img3 from '../assets/banhDau3.png'
+import img4 from '../assets/banhDau4.png'
+import { useCook } from '../context/CookContext'
+import RecipeCard from '../components/RecipeCard'
+import { Plus } from 'react-bootstrap-icons'
 
 const CookingGuide = () => {
-  const { id } = useParams();
-  const recipe = recipes.recipes.find(r => r.id === parseInt(id)) || recipes.recipes[0];
+    const { recipes } = useCook();
 
-  // Function to get image source
-  const getImageSource = (imagePath) => {
-    try {
-      if (imagePath === "../assets/banhDau.png") return banhDau;
-      if (imagePath === "../assets/avatar.png") return authorAvatar;
-      return banhDau; // Default image
-    } catch (error) {
-      console.error("Error loading image:", error);
-      return banhDau; // Fallback to default image
+  const [activeTab, setActiveTab] = useState('all');
+  const ingredients = [
+    { item: 'Yield: 4 generous servings' },
+    { item: '2 pints ripe, well-rinsed strawberries' },
+    { item: '1/2 cup sugar, or more to taste' },
+    { item: '4cups flour' },
+    { item: '3 tablespoons sugar' },
+    { item: '1/4 teaspoon salt' },
+    { item: '5 teaspoons baking powder' },
+    { item: '1 1/4 cups butter' },
+    { item: '3 cups whipping cream' },
+    { item: '½ teaspoon vanilla extract' }
+  ];
+
+  const steps = [
+    {
+      step: 1,
+      description: 'Pick over and hull strawberries. Cut in half or slice, depending on size. Gently crush about a quarter of the berries with a fork to release their juices. Mix with remaining berries and the ½ cup of sugar, adding more sugar if necessary. Set aside, covered, for about half an hour to develop flavor.',
+      image: img2
+    },
+    {
+      step: 2,
+      description: 'Preheat oven to 450 degrees.',
+      image: null
+    },
+    {
+      step: 3,
+      description: 'Into a large mixing bowl, sift together flour, 3 tablespoons sugar, salt and baking powder. Add ½ cup of softened butter, and rub into dry ingredients as for pastry. Add 1¼ cups cream, and mix to a soft dough. Knead the dough for one minute on a lightly floured pastry board, then roll it out to about ½-inch thickness. Using a 3-inch biscuit cutter, cut an even number of rounds - 2 rounds per serving.',
+      image: img3
+    },
+    {
+      step: 4,
+      description: 'Use a little of the butter to grease a baking sheet. Place half the rounds on it. Melt remaining butter and brush a little on the rounds; place remaining rounds on top. Bake for 10 to 15 minutes, or until golden brown.',
+      image: null
+    },
+    {
+      step: 5,
+      description: 'Use a little of the butter to grease a baking sheet. Place half the rounds on it. Melt remaining butter and brush a little on the rounds; place remaining rounds on top. Bake for 10 to 15 minutes, or until golden brown.',
+      image: null
+    },
+    {
+      step: 6,
+      description: 'Beat remaining cream until it thickens. Add vanilla. Beat again just until thick.',
+      image: img4
     }
-  };
+  ];
+
+  const comments = [
+    {
+      id: 1,
+      author: 'Jimmy Will',
+      avatar: avt,
+      content: 'Enim consectetur enim magna sit sit ullamco et dolore veniam nulla labore laboris anim eiusmod voluptate qui esse amet. Non cupidatat sunt duis occ',
+      time: '08:10 AM'
+    },
+    {
+      id: 2,
+      author: 'Alisa Grill',
+      avatar: avt,
+      content: 'Culpa esse pariatur deserunt reprehenderit fugiat incididunt exercitation dolore id officia officia duis Lorem et elit do eu est tempor. Tempor consequat qui laborum do qui sit laboris tempor culpa sit deserunt reprehenderi...',
+      time: '08:10 AM',
+      images: [img2, img3]
+    },
+    {
+      id: 3,
+      author: 'Chris Helison',
+      avatar: avt,
+      content: 'Labore ea est enim esse officia anim consequat cillum deserunt pariatu...',
+      time: '09:42 AM'
+    },
+    {
+      id: 4,
+      author: 'Emma Gonzalez',
+      avatar: avt,
+      content: 'Deserunt minim incididunt cillum nostrud do voluptate excepteur excepteur minim ex minim est laborum labore 😊 Mollit commodo in do dolor ut in mollit est',
+      time: '08:10 AM'
+    }
+  ];
 
   return (
-    <div className="container mt-4">
-      {/* Breadcrumb */}
-      <div className="d-flex flex-row align-items-center gap-2 mb-4">
-        <span>Home</span>
-        <img src={button} alt="arrow" style={{ width: "20px", height: "20px" }} />
-        <Link className="text-decoration-none" style={{color: "#ff69b4"}}>Cooking guide</Link>
-      </div>
+    <Container>
+      <nav className="pt-3 mb-5">
+        <ol className="breadcrumb d-flex align-items-center">
+          <li className="breadcrumb-item">
+            <Link to="/" className="text-dark text-decoration-none me-2">Home</Link>
+          </li>
+          <img src={arrow} width={20} height={20} alt="" />
+          <li className="active text-pink ms-2">Cooking guide</li>
+        </ol>
+      </nav>
 
-      <div className="row">
-        {/* Left Column - Recipe Info */}
-        <div className="col-md-6">
-          <h1 className="mb-4 fw-bold" style={{ fontSize: '2.5rem' }}>{recipe.title}</h1>
-          
-          <p className="text-muted">
-            {recipe.description}
+      <Row className='mb-5'>
+        <Col lg={5} md={12}>
+           <h2 className='fw-bold mt-4'>How to make a Strawberry Shortcake</h2>
+          <p className='mt-3'>
+            It seems like there may be a misunderstanding. If you're asking how a user can make a Strawberry Shortcake, the process would be identical to the recipe I shared earlier. It involves preparing the strawberries, making the shortcakes, preparing whipped cream, and finally assembling the shortcake.
           </p>
 
-          {/* Author Info */}
-          <div className="d-flex align-items-center gap-3 mb-4">
-            <img 
-              src={getImageSource(recipe.author.avatar)}
-              alt={recipe.author.name} 
-              className="rounded-circle"
-              style={{ width: "40px", height: "40px", objectFit: "cover" }}
-            />
-            <span>{recipe.author.name}</span>
-            <button 
-              className="btn rounded-pill" 
-              style={{ 
-                borderColor: '#ff69b4', 
-                color: '#ff69b4',
-                '&:hover': {
-                  backgroundColor: '#ff69b4',
-                  color: 'white'
-                }
-              }}
-            >
-              <i className="bi bi-bookmark"></i>
-            </button>
-          </div>
+          <div className='border rounded-3 shadow-lg p-4'>
+            <div className='d-flex align-items-center justify-content-between mt-1 ms-2'>
+                <div>
+                    <img src={avt} alt="" className='rounded-circle' />
+                    <span className='ms-2 fs-4 fw-medium'>Emma Gonzalez</span>
+                </div>
+                <img src={save} alt="Save" width={40} height={40} style={{ cursor: 'pointer' }} />
+            </div>
 
-          {/* Recipe Meta Info */}
-          <div className="d-flex gap-5 mb-4">
-            <div>
-              <p className="text-muted mb-1">Time:</p>
-              <p className="fw-bold">{recipe.time}</p>
-            </div>
-            <div>
-              <p className="text-muted mb-1">Notes</p>
-              <p className="fw-bold">{recipe.notes} community notes</p>
-            </div>
-            <div>
-              <p className="text-muted mb-1">Rating</p>
-              <div className="d-flex">
-                {[...Array(5)].map((_, index) => (
-                  index < recipe.rating ? 
-                    <StarFill key={index} className="text-warning" /> : 
-                    <Star key={index} className="text-warning" />
-                ))}
-              </div>
+            <div className='d-flex justify-content-between text-center gap-lg-5 pt-2 mt-5 ms-2' style={{fontSize: '1em'}}>
+                <div>
+                    <p className='mb-1'>Time:</p>
+                    <p className='text-muted fw-medium'>45 minutes</p>
+                </div>
+                <div>
+                    <p className='text-muted mb-1'>Notes</p>
+                    <p className='text-muted fw-medium'>352 community notes</p>
+                </div>
+                <div>
+                <p className='text-muted mb-0'>Rating:</p>
+                <div className='d-flex justify-content-center mb-4' style={{fontSize: '1.5em'}}>
+                    {'★★★★☆'.split('').map((star, index) => (
+                    <span key={index} style={{ color: index < 4 ? '#ffc107' : '#ccc' }}>{star}</span>
+                    ))}
+                </div>
+                </div>
             </div>
           </div>
-
-          {/* Ingredients */}
-          <div className="p-4 border rounded mb-4 bg-white" style={{ borderColor: '#eee' }}>
-            <h3 className="mb-3 fw-bold">Ingredients</h3>
-            <ul className="list-unstyled">
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index} className="mb-2">- {ingredient}</li>
-              ))}
-            </ul>
-            <button 
-              className="btn rounded-pill w-100" 
-              style={{ 
-                backgroundColor: '#ff69b4', 
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: '#ff1493'
-                }
-              }}
-            >
-              Add to Your Grocery List
-            </button>
+          <div className='rounded-3 p-4 mt-4' style={{border: '2px dashed  #f05b91', fontSize: '1.2em'}}>
+            {ingredients.map((ing, index) => (
+              <p key={index} className='mb-3'> - {ing.item}</p>
+            ))}
+            <Button variant='pink' className='w-100 mt-3 d-flex align-items-center justify-content-center gap-2 rounded-4'>
+                <Plus size={27}></Plus>   Add to Your Grocery List
+            </Button>
           </div>
-        </div>
+        </Col>
+        <Col lg={5} md={12}>
+          <img src={img1} alt="Strawberry Shortcake" className='w-100 rounded-4 mt-4' />
 
-        {/* Right Column - Steps */}
-        <div className="col-md-6">
-          <div className="steps-container">
-            {recipe.steps.map((step, index) => (
-              <div key={index} className="step-item mb-5">
-                <img 
-                  src={getImageSource(step.image)}
-                  alt={`Step ${index + 1}`} 
-                  className="img-fluid rounded mb-4"
-                  style={{ width: "100%", height: "auto" }}
-                />
-                <h3 className="mb-4 fw-bold" style={{ color: '#333' }}>{step.title}</h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  {step.description}
-                </p>
+          <div className='mt-5'>
+            {steps.map((step, index) => (
+              <div key={index} className='mb-5'>
+                <h5 className='fw-bold mb-3'>Step {step.step}</h5>
+                <p className='text-muted'>{step.description}</p>
+                {step.image && (
+                  <img src={step.image} alt={`Step ${step.step}`} className='rounded-3 w-100 mt-3' />
+                )}
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="mt-5">
-        <h3 className="mb-4 fw-bold">Cooking Notes</h3>
-        <div className="form-group">
-          <textarea 
-            className="form-control" 
-            rows="4" 
-            placeholder="Share your thoughts about this recipe"
-            style={{ resize: 'none' }}
-          ></textarea>
-          <div className="text-end mt-3">
-            <button 
-              className="btn" 
+      <div className='mb-5'>
+        <h4 className='fw-bold mb-4'>Cooking note</h4>
+        <div className='position-relative'>
+          <Form>
+            <Form.Control
+              as="textarea"
+              rows={5}
+              placeholder="State your opinion about the article"
+              className='mb-3 pe-5 border-2 text-muted'
+            />
+            <Button 
+              className='position-absolute text-white'
               style={{ 
-                backgroundColor: '#ff69b4', 
-                color: 'white',
-                paddingLeft: '2rem',
-                paddingRight: '2rem'
+                backgroundColor: '#f05b91',
+                border: 'none',
+                right: '20px',
+                bottom: '20px',
+                borderRadius: '10px',
+                padding: '6px 25px'
               }}
             >
               Send
-            </button>
-          </div>
+            </Button>
+          </Form>
         </div>
 
-        <div className="d-flex gap-4 border-bottom mb-4">
-          <button className="btn border-0 position-relative pb-2" style={{ color: '#ff69b4', borderBottom: '2px solid #ff69b4' }}>
-            All Notes ({recipe.comments.length})
-          </button>
-          <button className="btn border-0 text-muted pb-2">
-            Most Helpful (20)
-          </button>
-          <button className="btn border-0 text-muted pb-2">
-            Private (1)
-          </button>
-        </div>
+        <Nav variant="underline" className="mb-4 recipe-nav">
+            <Nav.Item>
+            <Nav.Link 
+                className={activeTab === 'all' ? 'active' : ''} 
+                onClick={() => setActiveTab('all')}
+            >
+                All Notes
+            </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+            <Nav.Link 
+                className={activeTab === 'helpful' ? 'active' : ''} 
+                onClick={() => setActiveTab('helpful')}
+            >
+                Most Helpful
+            </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+            <Nav.Link 
+                className={activeTab === 'private' ? 'active' : ''} 
+                onClick={() => setActiveTab('private')}
+            >
+                Private 
+            </Nav.Link>
+            </Nav.Item>
+        </Nav>
 
-        {/* Comments List */}
-        <div className="comments-list">
-          {recipe.comments.map((comment, index) => (
-            <div key={index} className="d-flex gap-3 mb-4">
-              <img 
-                src={getImageSource(comment.avatar)} 
-                alt={comment.author} 
-                className="rounded-circle" 
-                style={{ width: "40px", height: "40px" }} 
-              />
-              <div className="flex-grow-1">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                  <h6 className="mb-0">{comment.author}</h6>
-                  <span className="text-muted small">{comment.time}</span>
+        <div className='mt-4'>
+          {comments.map(comment => (
+            <div key={comment.id} className='mb-4 pb-4 border-bottom'>
+              <div className='d-flex justify-content-between align-items-start mb-3'>
+                <div className='d-flex align-items-center'>
+                  <img src={comment.avatar} alt={comment.author} className='rounded-circle' width={40} height={40} />
+                  <div className='ms-2'>
+                    <h6 className='mb-0'>{comment.author}</h6>
+                  </div>
                 </div>
-                <p className="mb-2">{comment.content}</p>
-                <div className="d-flex gap-3">
-                  <button className="btn btn-sm text-muted p-0">
-                    <i className="bi bi-hand-thumbs-up me-1"></i>
-                  </button>
-                  <button className="btn btn-sm text-muted p-0">Reply</button>
+                <span className='text-muted small'>{comment.time}</span>
+              </div>
+              <p className='text-muted mb-3'>{comment.content}</p>
+              {comment.images && (
+                <div className='d-flex gap-3'>
+                  {comment.images.map((img, index) => (
+                    <img key={index} src={img} alt="" className='rounded-3' style={{ width: '200px', height: '150px', objectFit: 'cover' }} />
+                  ))}
                 </div>
+              )}
+              <div className='d-flex gap-3 mt-3'>
+                <Button variant='link' className='text-muted p-0 text-decoration-none'>
+                  <i className='bi bi-hand-thumbs-up me-1'></i> Like
+                </Button>
+                <Button variant='link' className='text-muted p-0 text-decoration-none'>Reply</Button>
               </div>
             </div>
           ))}
+          <Button variant='link' className='text-pink text-decoration-none p-0 position-absolute start-50 translate-middle-x'>
+            Show more discussion (47)
+          </Button>
         </div>
       </div>
-    </div>
-  );
-};
+      <div className='py-5'>
+          <div>
+            <h3 className='fw-bold mt-3'>Your Recently Viewed</h3>
+          </div>
+          <Row className='mb-5 pt-3 justify-content-between'>
+            {recipes.slice(0, 4).map(recipe => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </Row>
+        </div>
+    </Container>
+  )
+}
 
-export default CookingGuide;
+export default CookingGuide
